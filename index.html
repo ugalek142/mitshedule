@@ -90,14 +90,16 @@
         }
         .modal-content {
             background-color: #1f2833;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 25px;
             border: 2px solid #45a29e;
             border-radius: 10px;
             width: 80%;
-            max-width: 600px;
+            max-width: 700px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
         }
         .close-btn {
             color: #aaa;
@@ -115,21 +117,34 @@
             border-bottom: 1px solid #45a29e;
             padding-bottom: 10px;
         }
+        .modal-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: rgba(31, 40, 51, 0.5);
+            border-radius: 8px;
+        }
+        .modal-section h3 {
+            color: #45a29e;
+            margin-top: 0;
+        }
         .modal-links {
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .modal-link {
             display: block;
             color: #66fcf1;
             text-decoration: none;
-            margin: 10px 0;
-            padding: 8px;
+            margin: 8px 0;
+            padding: 8px 12px;
             background-color: rgba(102, 252, 241, 0.1);
             border-radius: 5px;
             transition: background-color 0.3s;
         }
         .modal-link:hover {
             background-color: rgba(102, 252, 241, 0.2);
+        }
+        .modal-text {
+            line-height: 1.6;
         }
         
         .legend {
@@ -166,7 +181,11 @@
             }
             .modal-content {
                 width: 95%;
-                margin: 20% auto;
+                margin: 10% auto;
+                padding: 15px;
+            }
+            .modal-section {
+                padding: 10px;
             }
         }
     </style>
@@ -188,76 +207,159 @@
         <tr>
             <td>8:30-9:15</td>
             <td>
-                <button class="subject-btn math" onclick="openModal('Углублённая математика', 'MIT Recommended:', [
-                    {url: 'https://ocw.mit.edu/courses/mathematics/', text: 'MIT OpenCourseWare Math'},
-                    {url: 'https://artofproblemsolving.com/', text: 'Art of Problem Solving (AoPS)'}
-                ])">Углублённая математика</button>
+                <button class="subject-btn math" onclick="openModal(
+                    'Углублённая математика', 
+                    'Изучение продвинутых тем математики, включая алгебру, геометрию и начала анализа. Подготовка к олимпиадам и экзаменам.',
+                    [
+                        {url: 'https://ocw.mit.edu/courses/mathematics/', text: 'MIT OpenCourseWare Math'},
+                        {url: 'https://artofproblemsolving.com/', text: 'Art of Problem Solving (AoPS)'},
+                        {url: 'https://www.khanacademy.org/math', text: 'Khan Academy Math'}
+                    ]
+                )">Углублённая математика</button>
             </td>
             <td>
-                <button class="subject-btn physics" onclick="openModal('Физика (англ.)', 'Ресурсы:', [
-                    {url: 'https://ocw.mit.edu/courses/physics/', text: 'MIT Physics Courses'},
-                    {url: 'https://www.khanacademy.org/science/physics', text: 'Khan Academy Physics'}
-                ])">Физика (англ.)</button>
+                <button class="subject-btn physics" onclick="openModal(
+                    'Физика (англ.)', 
+                    'Изучение основ механики, термодинамики и электромагнетизма на английском языке. Акцент на решении задач и экспериментах.',
+                    [
+                        {url: 'https://ocw.mit.edu/courses/physics/', text: 'MIT Physics Courses'},
+                        {url: 'https://www.khanacademy.org/science/physics', text: 'Khan Academy Physics'},
+                        {url: 'https://phet.colorado.edu/', text: 'PhET Physics Simulations'}
+                    ]
+                )">Физика (англ.)</button>
             </td>
             <td>
-                <button class="subject-btn math" onclick="openModal('Олимпиадная математика', 'Ресурсы:', [
-                    {url: 'https://www.imo-official.org/', text: 'Math Olympiad'},
-                    {url: 'https://www.amc.org/', text: 'AMC Contests'}
-                ])">Олимпиадная математика</button>
+                <button class="subject-btn math" onclick="openModal(
+                    'Олимпиадная математика', 
+                    'Подготовка к математическим олимпиадам различного уровня. Разбор нестандартных задач и методов их решения.',
+                    [
+                        {url: 'https://www.imo-official.org/', text: 'International Math Olympiad'},
+                        {url: 'https://www.amc.org/', text: 'AMC Contests'},
+                        {url: 'https://artofproblemsolving.com/', text: 'AoPS Contest Collection'}
+                    ]
+                )">Олимпиадная математика</button>
             </td>
             <td>
-                <button class="subject-btn cs" onclick="openModal('Computer Science', 'Ресурсы:', [
-                    {url: 'https://scratch.mit.edu/', text: 'Scratch MIT'},
-                    {url: 'https://www.python.org/', text: 'Python Official'}
-                ])">Computer Science</button>
+                <button class="subject-btn cs" onclick="openModal(
+                    'Computer Science', 
+                    'Основы программирования на Python. Алгоритмы и структуры данных. Создание простых приложений и игр.',
+                    [
+                        {url: 'https://scratch.mit.edu/', text: 'Scratch MIT'},
+                        {url: 'https://www.python.org/', text: 'Python Official'},
+                        {url: 'https://www.codecademy.com/', text: 'Codecademy Python Course'}
+                    ]
+                )">Computer Science</button>
             </td>
             <td>
-                <button class="subject-btn math" onclick="openModal('Математический анализ', 'Ресурсы:', [
-                    {url: 'https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/', text: 'MIT Calculus'}
-                ])">Математический анализ</button>
+                <button class="subject-btn math" onclick="openModal(
+                    'Математический анализ', 
+                    'Введение в дифференциальное и интегральное исчисление. Основные теоремы и их применение.',
+                    [
+                        {url: 'https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/', text: 'MIT Calculus'},
+                        {url: 'https://www.khanacademy.org/math/calculus-1', text: 'Khan Academy Calculus'}
+                    ]
+                )">Математический анализ</button>
             </td>
         </tr>
         
+        <!-- Остальные строки расписания -->
         <tr>
             <td>9:20-10:05</td>
             <td>
-                <button class="subject-btn engineering" onclick="openModal('Robotics', 'Ресурсы:', [
-                    {url: 'https://www.firstlegoleague.org/', text: 'FIRST Lego League'},
-                    {url: 'https://www.arduino.cc/', text: 'Arduino Official'}
-                ])">Robotics</button>
+                <button class="subject-btn engineering" onclick="openModal(
+                    'Robotics', 
+                    'Основы робототехники и автоматизации. Сборка и программирование роботов на базе Arduino и LEGO Mindstorms.',
+                    [
+                        {url: 'https://www.firstlegoleague.org/', text: 'FIRST Lego League'},
+                        {url: 'https://www.arduino.cc/', text: 'Arduino Official'},
+                        {url: 'https://education.lego.com/', text: 'LEGO Education'}
+                    ]
+                )">Robotics</button>
             </td>
             <td>
-                <button class="subject-btn chemistry" onclick="openModal('Химия (англ.)', 'Ресурсы:', [
-                    {url: 'https://ocw.mit.edu/courses/chemistry/', text: 'MIT Chemistry'},
-                    {url: 'https://phet.colorado.edu/', text: 'PhET Sims'}
-                ])">Химия (англ.)</button>
+                <button class="subject-btn chemistry" onclick="openModal(
+                    'Химия (англ.)', 
+                    'Изучение основ химии на английском языке. Атомная структура, химические связи, реакции. Практические лабораторные работы.',
+                    [
+                        {url: 'https://ocw.mit.edu/courses/chemistry/', text: 'MIT Chemistry'},
+                        {url: 'https://phet.colorado.edu/', text: 'PhET Chemistry Sims'},
+                        {url: 'https://www.khanacademy.org/science/chemistry', text: 'Khan Academy Chemistry'}
+                    ]
+                )">Химия (англ.)</button>
             </td>
             <td>
-                <button class="subject-btn physics" onclick="openModal('Физическая лаборатория', 'Ресурсы:', [
-                    {url: 'https://www.compadre.org/student/', text: 'Physics Labs'}
-                ])">Физическая лаборатория</button>
+                <button class="subject-btn physics" onclick="openModal(
+                    'Физическая лаборатория', 
+                    'Практические эксперименты по механике и электродинамике. Обработка данных и написание отчётов.',
+                    [
+                        {url: 'https://www.compadre.org/student/', text: 'Physics Labs Resources'},
+                        {url: 'https://phet.colorado.edu/', text: 'Virtual Physics Labs'}
+                    ]
+                )">Физическая лаборатория</button>
             </td>
             <td>
-                <button class="subject-btn english" onclick="openModal('Английский (Academic)', 'Ресурсы:', [
-                    {url: 'https://www.mitadmissions.org/apply/prepare/', text: 'MIT Admissions'},
-                    {url: 'https://www.toeflgoanywhere.org/', text: 'TOEFL Prep'}
-                ])">Английский (Academic)</button>
+                <button class="subject-btn english" onclick="openModal(
+                    'Английский (Academic)', 
+                    'Академический английский с упором на научную лексику. Подготовка к TOEFL. Написание эссе и научных статей.',
+                    [
+                        {url: 'https://www.mitadmissions.org/apply/prepare/', text: 'MIT Admissions'},
+                        {url: 'https://www.toeflgoanywhere.org/', text: 'TOEFL Prep'},
+                        {url: 'https://www.cambridgeenglish.org/', text: 'Cambridge English'}
+                    ]
+                )">Английский (Academic)</button>
             </td>
             <td>
-                <button class="subject-btn research" onclick="openModal('Научные исследования', 'Ресурсы:', [
-                    {url: 'https://sciencefair.mit.edu/', text: 'MIT Science Fair'}
-                ])">Научные исследования</button>
+                <button class="subject-btn research" onclick="openModal(
+                    'Научные исследования', 
+                    'Индивидуальные и групповые исследовательские проекты под руководством преподавателей. Подготовка к научным ярмаркам.',
+                    [
+                        {url: 'https://sciencefair.mit.edu/', text: 'MIT Science Fair'},
+                        {url: 'https://www.societyforscience.org/', text: 'Society for Science'}
+                    ]
+                )">Научные исследования</button>
             </td>
         </tr>
         
-        <!-- Остальные строки расписания с аналогичными кнопками -->
+        <!-- Остальные дни недели -->
         <tr>
             <td>10:10-10:55</td>
-            <td><button class="subject-btn humanities">Русский язык</button></td>
-            <td><button class="subject-btn literature">Литература</button></td>
-            <td><button class="subject-btn history">История</button></td>
-            <td><button class="subject-btn geography">География</button></td>
-            <td><button class="subject-btn biology">Биология</button></td>
+            <td><button class="subject-btn humanities" onclick="openModal(
+                'Русский язык', 
+                'Совершенствование грамотности и навыков письма. Подготовка к написанию научных работ и эссе.',
+                []
+            )">Русский язык</button></td>
+            <td><button class="subject-btn literature" onclick="openModal(
+                'Литература', 
+                'Изучение классической и современной литературы. Анализ текстов. Особое внимание научной фантастике.',
+                [
+                    {url: 'https://libraries.mit.edu/', text: 'MIT Libraries'},
+                    {url: 'https://www.gutenberg.org/', text: 'Project Gutenberg'}
+                ]
+            )">Литература</button></td>
+            <td><button class="subject-btn history" onclick="openModal(
+                'История', 
+                'История науки и технологий. Великие открытия и их создатели. Влияние технологий на развитие общества.',
+                [
+                    {url: 'https://www.historyofscience.com/', text: 'History of Science'},
+                    {url: 'https://www.britannica.com/', text: 'Encyclopedia Britannica'}
+                ]
+            )">История</button></td>
+            <td><button class="subject-btn geography" onclick="openModal(
+                'География', 
+                'Современные географические информационные системы (ГИС). Экология и устойчивое развитие.',
+                [
+                    {url: 'https://www.nationalgeographic.org/', text: 'National Geographic'},
+                    {url: 'https://earth.google.com/', text: 'Google Earth'}
+                ]
+            )">География</button></td>
+            <td><button class="subject-btn biology" onclick="openModal(
+                'Биология', 
+                'Основы молекулярной биологии и генетики. Современные биотехнологии. Лабораторные работы.',
+                [
+                    {url: 'https://ocw.mit.edu/courses/biology/', text: 'MIT Biology'},
+                    {url: 'https://www.khanacademy.org/science/biology', text: 'Khan Academy Biology'}
+                ]
+            )">Биология</button></td>
         </tr>
         
         <tr>
@@ -267,20 +369,84 @@
         
         <tr>
             <td>11:15-12:00</td>
-            <td><button class="subject-btn cs">Алгоритмы</button></td>
-            <td><button class="subject-btn olympiad">Science Olympiad</button></td>
-            <td><button class="subject-btn engineering">Электроника</button></td>
-            <td><button class="subject-btn humanities">Обществознание</button></td>
-            <td><button class="subject-btn arts">ИЗО/Дизайн</button></td>
+            <td><button class="subject-btn cs" onclick="openModal(
+                'Алгоритмы', 
+                'Основные алгоритмы и структуры данных. Сортировка, поиск, графы. Решение олимпиадных задач по программированию.',
+                [
+                    {url: 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/', text: 'MIT EECS'},
+                    {url: 'https://leetcode.com/', text: 'LeetCode'}
+                ]
+            )">Алгоритмы</button></td>
+            <td><button class="subject-btn olympiad" onclick="openModal(
+                'Science Olympiad', 
+                'Подготовка к научным олимпиадам. Решение комплексных междисциплинарных задач.',
+                [
+                    {url: 'https://www.soinc.org/', text: 'Science Olympiad'},
+                    {url: 'https://www.scioly.org/', text: 'Science Olympiad Student Center'}
+                ]
+            )">Science Olympiad</button></td>
+            <td><button class="subject-btn engineering" onclick="openModal(
+                'Электроника', 
+                'Основы схемотехники. Работа с паяльником. Создание простых электронных устройств.',
+                [
+                    {url: 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-002-circuits-and-electronics-spring-2007/', text: 'MIT Circuits'},
+                    {url: 'https://www.tinkercad.com/', text: 'Tinkercad Circuits'}
+                ]
+            )">Электроника</button></td>
+            <td><button class="subject-btn humanities" onclick="openModal(
+                'Обществознание', 
+                'Этика в науке и технологиях. Социальные последствия технического прогресса.',
+                []
+            )">Обществознание</button></td>
+            <td><button class="subject-btn arts" onclick="openModal(
+                'ИЗО/Дизайн', 
+                'Основы инженерного дизайна. Создание 3D-моделей. Визуализация научных концепций.',
+                [
+                    {url: 'https://www.tinkercad.com/', text: 'Tinkercad 3D Design'},
+                    {url: 'https://www.blender.org/', text: 'Blender 3D'}
+                ]
+            )">ИЗО/Дизайн</button></td>
         </tr>
         
         <tr>
             <td>12:05-12:50</td>
-            <td><button class="subject-btn english">Английская литература</button></td>
-            <td><button class="subject-btn physics">Решение задач MIT</button></td>
-            <td><button class="subject-btn arts">Музыка/Технологии</button></td>
-            <td><button class="subject-btn pe">Физкультура</button></td>
-            <td><button class="subject-btn research">Проектная работа</button></td>
+            <td><button class="subject-btn english" onclick="openModal(
+                'Английская литература', 
+                'Чтение и анализ научно-фантастической литературы на английском языке. Обсуждение тем и стиля.',
+                [
+                    {url: 'https://libraries.mit.edu/', text: 'MIT Libraries'},
+                    {url: 'https://www.gutenberg.org/', text: 'Free eBooks'}
+                ]
+            )">Английская литература</button></td>
+            <td><button class="subject-btn physics" onclick="openModal(
+                'Решение задач MIT', 
+                'Разбор задач из курсов MIT. Развитие навыков решения сложных физических задач.',
+                [
+                    {url: 'https://ocw.mit.edu/courses/physics/8-01sc-classical-mechanics-fall-2016/', text: 'MIT Problem Sets'},
+                    {url: 'https://www.physicsclassroom.com/', text: 'Physics Classroom'}
+                ]
+            )">Решение задач MIT</button></td>
+            <td><button class="subject-btn arts" onclick="openModal(
+                'Музыка/Технологии', 
+                'Создание электронной музыки с использованием технологий. Основы звукового дизайна.',
+                [
+                    {url: 'https://musiclab.chromeexperiments.com/', text: 'Chrome Music Lab'},
+                    {url: 'https://www.audacityteam.org/', text: 'Audacity'}
+                ]
+            )">Музыка/Технологии</button></td>
+            <td><button class="subject-btn pe" onclick="openModal(
+                'Физкультура', 
+                'Спортивные игры и физическая подготовка. Важность физической активности для умственной работы.',
+                []
+            )">Физкультура</button></td>
+            <td><button class="subject-btn research" onclick="openModal(
+                'Проектная работа', 
+                'Работа над индивидуальными или групповыми проектами. Подготовка презентаций и отчётов.',
+                [
+                    {url: 'https://urop.mit.edu/', text: 'MIT UROP'},
+                    {url: 'https://www.sciencenewsforstudents.org/', text: 'Science News for Students'}
+                ]
+            )">Проектная работа</button></td>
         </tr>
         
         <tr>
@@ -290,11 +456,31 @@
         
         <tr>
             <td>13:30-14:15</td>
-            <td><button class="subject-btn literature">Русская литература</button></td>
-            <td><button class="subject-btn history">Всемирная история</button></td>
-            <td><button class="subject-btn geography">Экология</button></td>
-            <td><button class="subject-btn pe">Физкультура</button></td>
-            <td><button class="subject-btn">Итоги недели</button></td>
+            <td><button class="subject-btn literature" onclick="openModal(
+                'Русская литература', 
+                'Классическая и современная русская литература. Анализ произведений. Связь литературы и науки.',
+                []
+            )">Русская литература</button></td>
+            <td><button class="subject-btn history" onclick="openModal(
+                'Всемирная история', 
+                'История научных открытий и технологических революций. Великие учёные и изобретатели.',
+                []
+            )">Всемирная история</button></td>
+            <td><button class="subject-btn geography" onclick="openModal(
+                'Экология', 
+                'Современные экологические проблемы. Устойчивое развитие и технологии будущего.',
+                []
+            )">Экология</button></td>
+            <td><button class="subject-btn pe" onclick="openModal(
+                'Физкультура', 
+                'Спортивные игры на свежем воздухе. Командные виды спорта.',
+                []
+            )">Физкультура</button></td>
+            <td><button class="subject-btn" onclick="openModal(
+                'Итоги недели', 
+                'Подведение итогов учебной недели. Постановка целей на следующую неделю.',
+                []
+            )">Итоги недели</button></td>
         </tr>
     </table>
 
@@ -303,9 +489,17 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h2 class="modal-title" id="modalTitle">Название предмета</h2>
-            <p id="modalDescription">Описание предмета</p>
-            <div class="modal-links" id="modalLinks">
-                <!-- Ссылки будут добавляться сюда через JavaScript -->
+            
+            <div class="modal-section">
+                <h3>Дополнительная информация</h3>
+                <p class="modal-text" id="modalDescription">Описание предмета</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3>Дополнительные ресурсы</h3>
+                <div class="modal-links" id="modalLinks">
+                    <!-- Ссылки будут добавляться сюда через JavaScript -->
+                </div>
             </div>
         </div>
     </div>
@@ -350,7 +544,7 @@
                     linksContainer.appendChild(linkElement);
                 });
             } else {
-                linksContainer.innerHTML = '<p>Дополнительные ресурсы не указаны</p>';
+                linksContainer.innerHTML = '<p>Ресурсы не указаны</p>';
             }
             
             document.getElementById('subjectModal').style.display = 'block';
@@ -368,15 +562,6 @@
                 closeModal();
             }
         }
-        
-        // Для мобильных устройств - обработка кликов по кнопкам
-        document.querySelectorAll('.subject-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!this.getAttribute('onclick')) {
-                    openModal(this.textContent, 'Дополнительная информация не указана', []);
-                }
-            });
-        });
     </script>
 </body>
 </html>
