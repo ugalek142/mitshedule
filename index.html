@@ -26,10 +26,8 @@
         }
         th, td {
             border: 1px solid #1f2833;
-            padding: 12px;
+            padding: 8px;
             text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
         }
         th {
             background-color: #1f2833;
@@ -37,8 +35,27 @@
             font-size: 1.1em;
             letter-spacing: 1px;
         }
-        td:hover {
-            background-color: rgba(31, 40, 51, 0.8);
+        
+        /* Стили для кнопок-предметов */
+        .subject-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 5px;
+            margin: 3px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .subject-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .subject-btn:active {
+            transform: translateY(0);
         }
         
         /* Цвета предметов */
@@ -60,34 +77,59 @@
         .break { background-color: #424242; color: white; }
         .lunch { background-color: #000000; color: white; }
         
-        .subject-details {
+        /* Модальное окно */
+        .modal {
             display: none;
-            position: absolute;
-            background-color: #1f2833;
-            border: 2px solid #45a29e;
-            padding: 15px;
+            position: fixed;
             z-index: 1000;
-            width: 300px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.7);
-            text-align: left;
-            top: calc(100% + 5px);
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
         }
-        td:hover .subject-details {
+        .modal-content {
+            background-color: #1f2833;
+            margin: 10% auto;
+            padding: 25px;
+            border: 2px solid #45a29e;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #66fcf1;
+        }
+        .modal-title {
+            color: #66fcf1;
+            margin-top: 0;
+            border-bottom: 1px solid #45a29e;
+            padding-bottom: 10px;
+        }
+        .modal-links {
+            margin-top: 20px;
+        }
+        .modal-link {
             display: block;
-        }
-        
-        .material-link {
             color: #66fcf1;
             text-decoration: none;
-            display: block;
-            margin: 5px 0;
-            padding: 3px 0;
+            margin: 10px 0;
+            padding: 8px;
+            background-color: rgba(102, 252, 241, 0.1);
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-        .material-link:hover {
-            text-decoration: underline;
+        .modal-link:hover {
+            background-color: rgba(102, 252, 241, 0.2);
         }
         
         .legend {
@@ -111,68 +153,20 @@
             font-size: 0.9em;
         }
         
-        /* Стили для секции ресурсов */
-        .resources {
-            margin-top: 40px;
-            background-color: #1f2833;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-        .resources h2 {
-            color: #66fcf1;
-            border-bottom: 2px solid #45a29e;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        .resource-category {
-            margin-bottom: 20px;
-        }
-        .resource-category h3 {
-            color: #45a29e;
-            margin-bottom: 10px;
-        }
-        .resource-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-        }
-        .resource-item {
-            background-color: #0a192f;
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 4px solid #66fcf1;
-            transition: transform 0.3s ease;
-        }
-        .resource-item:hover {
-            transform: translateY(-3px);
-        }
-        .resource-item a {
-            color: #66fcf1;
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .resource-item p {
-            color: #c5c6c7;
-            font-size: 0.9em;
-            margin: 5px 0 0;
-        }
-        
         @media (max-width: 768px) {
             table {
                 font-size: 0.9em;
             }
             th, td {
-                padding: 8px 4px;
+                padding: 5px 2px;
             }
-            .subject-details {
-                width: 250px;
+            .subject-btn {
+                padding: 8px 2px;
                 font-size: 0.9em;
             }
-            .resource-list {
-                grid-template-columns: 1fr;
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
             }
         }
     </style>
@@ -193,112 +187,77 @@
         <!-- Утро: Основные академические предметы -->
         <tr>
             <td>8:30-9:15</td>
-            <td class="math">
-                Углублённая математика
-                <div class="subject-details">
-                    <strong>MIT Recommended:</strong>
-                    <a href="https://ocw.mit.edu/courses/mathematics/" class="material-link" target="_blank">MIT OpenCourseWare Math</a>
-                    <a href="https://artofproblemsolving.com/" class="material-link" target="_blank">AoPS</a>
-                </div>
+            <td>
+                <button class="subject-btn math" onclick="openModal('Углублённая математика', 'MIT Recommended:', [
+                    {url: 'https://ocw.mit.edu/courses/mathematics/', text: 'MIT OpenCourseWare Math'},
+                    {url: 'https://artofproblemsolving.com/', text: 'Art of Problem Solving (AoPS)'}
+                ])">Углублённая математика</button>
             </td>
-            <td class="physics">
-                Физика (англ.)
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/physics/" class="material-link" target="_blank">MIT Physics</a>
-                    <a href="https://www.khanacademy.org/science/physics" class="material-link" target="_blank">Khan Academy</a>
-                </div>
+            <td>
+                <button class="subject-btn physics" onclick="openModal('Физика (англ.)', 'Ресурсы:', [
+                    {url: 'https://ocw.mit.edu/courses/physics/', text: 'MIT Physics Courses'},
+                    {url: 'https://www.khanacademy.org/science/physics', text: 'Khan Academy Physics'}
+                ])">Физика (англ.)</button>
             </td>
-            <td class="math">
-                Олимпиадная математика
-                <div class="subject-details">
-                    <a href="https://www.imo-official.org/" class="material-link" target="_blank">Math Olympiad</a>
-                    <a href="https://www.amc.org/" class="material-link" target="_blank">AMC Contests</a>
-                </div>
+            <td>
+                <button class="subject-btn math" onclick="openModal('Олимпиадная математика', 'Ресурсы:', [
+                    {url: 'https://www.imo-official.org/', text: 'Math Olympiad'},
+                    {url: 'https://www.amc.org/', text: 'AMC Contests'}
+                ])">Олимпиадная математика</button>
             </td>
-            <td class="cs">
-                Computer Science
-                <div class="subject-details">
-                    <a href="https://scratch.mit.edu/" class="material-link" target="_blank">Scratch MIT</a>
-                    <a href="https://www.python.org/" class="material-link" target="_blank">Python</a>
-                </div>
+            <td>
+                <button class="subject-btn cs" onclick="openModal('Computer Science', 'Ресурсы:', [
+                    {url: 'https://scratch.mit.edu/', text: 'Scratch MIT'},
+                    {url: 'https://www.python.org/', text: 'Python Official'}
+                ])">Computer Science</button>
             </td>
-            <td class="math">
-                Математический анализ
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/" class="material-link" target="_blank">MIT Calculus</a>
-                </div>
+            <td>
+                <button class="subject-btn math" onclick="openModal('Математический анализ', 'Ресурсы:', [
+                    {url: 'https://ocw.mit.edu/courses/mathematics/18-01sc-single-variable-calculus-fall-2010/', text: 'MIT Calculus'}
+                ])">Математический анализ</button>
             </td>
         </tr>
         
         <tr>
             <td>9:20-10:05</td>
-            <td class="engineering">
-                Robotics
-                <div class="subject-details">
-                    <a href="https://www.firstlegoleague.org/" class="material-link" target="_blank">FIRST Lego League</a>
-                    <a href="https://www.arduino.cc/" class="material-link" target="_blank">Arduino</a>
-                </div>
+            <td>
+                <button class="subject-btn engineering" onclick="openModal('Robotics', 'Ресурсы:', [
+                    {url: 'https://www.firstlegoleague.org/', text: 'FIRST Lego League'},
+                    {url: 'https://www.arduino.cc/', text: 'Arduino Official'}
+                ])">Robotics</button>
             </td>
-            <td class="chemistry">
-                Химия (англ.)
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/chemistry/" class="material-link" target="_blank">MIT Chemistry</a>
-                    <a href="https://phet.colorado.edu/" class="material-link" target="_blank">PhET Sims</a>
-                </div>
+            <td>
+                <button class="subject-btn chemistry" onclick="openModal('Химия (англ.)', 'Ресурсы:', [
+                    {url: 'https://ocw.mit.edu/courses/chemistry/', text: 'MIT Chemistry'},
+                    {url: 'https://phet.colorado.edu/', text: 'PhET Sims'}
+                ])">Химия (англ.)</button>
             </td>
-            <td class="physics">
-                Физическая лаборатория
-                <div class="subject-details">
-                    <a href="https://www.compadre.org/student/" class="material-link" target="_blank">Physics Labs</a>
-                </div>
+            <td>
+                <button class="subject-btn physics" onclick="openModal('Физическая лаборатория', 'Ресурсы:', [
+                    {url: 'https://www.compadre.org/student/', text: 'Physics Labs'}
+                ])">Физическая лаборатория</button>
             </td>
-            <td class="english">
-                Английский (Academic)
-                <div class="subject-details">
-                    <a href="https://www.mitadmissions.org/apply/prepare/" class="material-link" target="_blank">MIT Admissions</a>
-                    <a href="https://www.toeflgoanywhere.org/" class="material-link" target="_blank">TOEFL Prep</a>
-                </div>
+            <td>
+                <button class="subject-btn english" onclick="openModal('Английский (Academic)', 'Ресурсы:', [
+                    {url: 'https://www.mitadmissions.org/apply/prepare/', text: 'MIT Admissions'},
+                    {url: 'https://www.toeflgoanywhere.org/', text: 'TOEFL Prep'}
+                ])">Английский (Academic)</button>
             </td>
-            <td class="research">
-                Научные исследования
-                <div class="subject-details">
-                    <a href="https://sciencefair.mit.edu/" class="material-link" target="_blank">MIT Science Fair</a>
-                </div>
+            <td>
+                <button class="subject-btn research" onclick="openModal('Научные исследования', 'Ресурсы:', [
+                    {url: 'https://sciencefair.mit.edu/', text: 'MIT Science Fair'}
+                ])">Научные исследования</button>
             </td>
         </tr>
         
+        <!-- Остальные строки расписания с аналогичными кнопками -->
         <tr>
             <td>10:10-10:55</td>
-            <td class="humanities">
-                Русский язык
-                <div class="subject-details">
-                    <strong>Для MIT:</strong> Развитие академического письма
-                </div>
-            </td>
-            <td class="literature">
-                Литература
-                <div class="subject-details">
-                    <strong>MIT Recommended:</strong> Научная фантастика
-                </div>
-            </td>
-            <td class="history">
-                История
-                <div class="subject-details">
-                    <strong>Focus:</strong> История науки и технологий
-                </div>
-            </td>
-            <td class="geography">
-                География
-                <div class="subject-details">
-                    <strong>MIT Link:</strong> Геоинформационные системы
-                </div>
-            </td>
-            <td class="biology">
-                Биология
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/biology/" class="material-link" target="_blank">MIT Biology</a>
-                </div>
-            </td>
+            <td><button class="subject-btn humanities">Русский язык</button></td>
+            <td><button class="subject-btn literature">Литература</button></td>
+            <td><button class="subject-btn history">История</button></td>
+            <td><button class="subject-btn geography">География</button></td>
+            <td><button class="subject-btn biology">Биология</button></td>
         </tr>
         
         <tr>
@@ -308,70 +267,20 @@
         
         <tr>
             <td>11:15-12:00</td>
-            <td class="cs">
-                Алгоритмы
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/" class="material-link" target="_blank">MIT EECS</a>
-                </div>
-            </td>
-            <td class="olympiad">
-                Science Olympiad
-                <div class="subject-details">
-                    <a href="https://www.soinc.org/" class="material-link" target="_blank">Science Olympiad</a>
-                </div>
-            </td>
-            <td class="engineering">
-                Электроника
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-002-circuits-and-electronics-spring-2007/" class="material-link" target="_blank">MIT Circuits</a>
-                </div>
-            </td>
-            <td class="humanities">
-                Обществознание
-                <div class="subject-details">
-                    <strong>MIT Link:</strong> Этика в науке
-                </div>
-            </td>
-            <td class="arts">
-                ИЗО/Дизайн
-                <div class="subject-details">
-                    <strong>MIT Connection:</strong> Инженерный дизайн
-                </div>
-            </td>
+            <td><button class="subject-btn cs">Алгоритмы</button></td>
+            <td><button class="subject-btn olympiad">Science Olympiad</button></td>
+            <td><button class="subject-btn engineering">Электроника</button></td>
+            <td><button class="subject-btn humanities">Обществознание</button></td>
+            <td><button class="subject-btn arts">ИЗО/Дизайн</button></td>
         </tr>
         
         <tr>
             <td>12:05-12:50</td>
-            <td class="english">
-                Английская литература
-                <div class="subject-details">
-                    <a href="https://libraries.mit.edu/" class="material-link" target="_blank">MIT Libraries</a>
-                </div>
-            </td>
-            <td class="physics">
-                Решение задач MIT
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/physics/8-01sc-classical-mechanics-fall-2016/" class="material-link" target="_blank">MIT Problem Sets</a>
-                </div>
-            </td>
-            <td class="arts">
-                Музыка/Технологии
-                <div class="subject-details">
-                    <strong>MIT Media Lab:</strong> Музыка и технологии
-                </div>
-            </td>
-            <td class="pe">
-                Физкультура
-                <div class="subject-details">
-                    <strong>MIT Athletics:</strong> Баланс учебы и спорта
-                </div>
-            </td>
-            <td class="research">
-                Проектная работа
-                <div class="subject-details">
-                    <a href="https://urop.mit.edu/" class="material-link" target="_blank">MIT UROP</a>
-                </div>
-            </td>
+            <td><button class="subject-btn english">Английская литература</button></td>
+            <td><button class="subject-btn physics">Решение задач MIT</button></td>
+            <td><button class="subject-btn arts">Музыка/Технологии</button></td>
+            <td><button class="subject-btn pe">Физкультура</button></td>
+            <td><button class="subject-btn research">Проектная работа</button></td>
         </tr>
         
         <tr>
@@ -381,23 +290,25 @@
         
         <tr>
             <td>13:30-14:15</td>
-            <td class="literature">
-                Русская литература
-            </td>
-            <td class="history">
-                Всемирная история
-            </td>
-            <td class="geography">
-                Экология
-            </td>
-            <td class="pe">
-                Физкультура
-            </td>
-            <td class="summary">
-                Итоги недели
-            </td>
+            <td><button class="subject-btn literature">Русская литература</button></td>
+            <td><button class="subject-btn history">Всемирная история</button></td>
+            <td><button class="subject-btn geography">Экология</button></td>
+            <td><button class="subject-btn pe">Физкультура</button></td>
+            <td><button class="subject-btn">Итоги недели</button></td>
         </tr>
     </table>
+
+    <!-- Модальное окно -->
+    <div id="subjectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle">Название предмета</h2>
+            <p id="modalDescription">Описание предмета</p>
+            <div class="modal-links" id="modalLinks">
+                <!-- Ссылки будут добавляться сюда через JavaScript -->
+            </div>
+        </div>
+    </div>
 
     <div class="legend">
         <h3>Условные обозначения:</h3>
@@ -420,140 +331,51 @@
         </div>
     </div>
 
-    <div class="resources">
-        <h2>Полезные ресурсы для подготовки к MIT</h2>
-        
-        <div class="resource-category">
-            <h3>Официальные ресурсы MIT</h3>
-            <div class="resource-list">
-                <div class="resource-item">
-                    <a href="https://ocw.mit.edu/" target="_blank">MIT OpenCourseWare</a>
-                    <p>Бесплатные курсы MIT по всем предметам</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://mitadmissions.org/" target="_blank">MIT Admissions</a>
-                    <p>Официальный сайт приёмной комиссии MIT</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://urop.mit.edu/" target="_blank">Undergraduate Research Opportunities</a>
-                    <p>Программа исследовательских возможностей для студентов</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://esp.mit.edu/" target="_blank">MIT Educational Studies Program</a>
-                    <p>Программы для школьников от MIT</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="resource-category">
-            <h3>Математика и наука</h3>
-            <div class="resource-list">
-                <div class="resource-item">
-                    <a href="https://artofproblemsolving.com/" target="_blank">Art of Problem Solving</a>
-                    <p>Лучший ресурс для олимпиадной математики</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://brilliant.org/" target="_blank">Brilliant</a>
-                    <p>Интерактивное обучение математике и наукам</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.khanacademy.org/" target="_blank">Khan Academy</a>
-                    <p>Бесплатные уроки по всем предметам</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://phet.colorado.edu/" target="_blank">PhET Simulations</a>
-                    <p>Интерактивные симуляции по физике и химии</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="resource-category">
-            <h3>Программирование и технологии</h3>
-            <div class="resource-list">
-                <div class="resource-item">
-                    <a href="https://scratch.mit.edu/" target="_blank">Scratch</a>
-                    <p>Визуальное программирование для начинающих</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.codecademy.com/" target="_blank">Codecademy</a>
-                    <p>Интерактивное обучение программированию</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://cs50.harvard.edu/" target="_blank">Harvard CS50</a>
-                    <p>Знаменитый вводный курс по Computer Science</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.arduino.cc/" target="_blank">Arduino</a>
-                    <p>Платформа для обучения электронике и робототехнике</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="resource-category">
-            <h3>Олимпиады и конкурсы</h3>
-            <div class="resource-list">
-                <div class="resource-item">
-                    <a href="https://www.imo-official.org/" target="_blank">International Math Olympiad</a>
-                    <p>Официальный сайт Международной математической олимпиады</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.soinc.org/" target="_blank">Science Olympiad</a>
-                    <p>Крупнейшие научные соревнования в США</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.firstlegoleague.org/" target="_blank">FIRST Lego League</a>
-                    <p>Соревнования по робототехнике для школьников</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.maa.org/math-competitions" target="_blank">MAA Math Competitions</a>
-                    <p>Математические конкурсы от Американской математической ассоциации</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="resource-category">
-            <h3>Языковая подготовка</h3>
-            <div class="resource-list">
-                <div class="resource-item">
-                    <a href="https://www.toeflgoanywhere.org/" target="_blank">TOEFL Go Anywhere</a>
-                    <p>Официальный ресурс для подготовки к TOEFL</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.cambridgeenglish.org/" target="_blank">Cambridge English</a>
-                    <p>Ресурсы для изучения английского от Cambridge</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.ets.org/s/toefl/ibt/prepare/" target="_blank">ETS TOEFL Prep</a>
-                    <p>Официальные материалы для подготовки к TOEFL</p>
-                </div>
-                <div class="resource-item">
-                    <a href="https://www.duolingo.com/" target="_blank">Duolingo</a>
-                    <p>Бесплатное приложение для изучения языков</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Для мобильных устройств - переключение по клику
-        document.querySelectorAll('td').forEach(item => {
-            item.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    const details = this.querySelector('.subject-details');
-                    if (details) {
-                        details.style.display = details.style.display === 'block' ? 'none' : 'block';
-                    }
+        // Функция открытия модального окна
+        function openModal(title, description, links) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            
+            const linksContainer = document.getElementById('modalLinks');
+            linksContainer.innerHTML = '';
+            
+            if (links && links.length > 0) {
+                links.forEach(link => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link.url;
+                    linkElement.target = '_blank';
+                    linkElement.className = 'modal-link';
+                    linkElement.textContent = link.text;
+                    linksContainer.appendChild(linkElement);
+                });
+            } else {
+                linksContainer.innerHTML = '<p>Дополнительные ресурсы не указаны</p>';
+            }
+            
+            document.getElementById('subjectModal').style.display = 'block';
+        }
+        
+        // Функция закрытия модального окна
+        function closeModal() {
+            document.getElementById('subjectModal').style.display = 'none';
+        }
+        
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('subjectModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // Для мобильных устройств - обработка кликов по кнопкам
+        document.querySelectorAll('.subject-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!this.getAttribute('onclick')) {
+                    openModal(this.textContent, 'Дополнительная информация не указана', []);
                 }
             });
-        });
-
-        // Закрытие при клике вне окна
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.subject-details') && !e.target.closest('td')) {
-                document.querySelectorAll('.subject-details').forEach(el => {
-                    el.style.display = 'none';
-                });
-            }
         });
     </script>
 </body>
