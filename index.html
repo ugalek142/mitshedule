@@ -3,120 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Полное расписание 7 класса (MIT Prep)</title>
+    <title>Расписание 7 класса - Зыковская школа (9:00-14:00)</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 20px;
-            background-color: #0a192f;
-            color: #e0e0e0;
+            background-color: #f5f5f5;
+            color: #333;
         }
         h1 {
-            color: #66fcf1;
+            color: #2c3e50;
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #45a29e;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         th, td {
-            border: 1px solid #1f2833;
-            padding: 12px;
+            border: 1px solid #ddd;
+            padding: 10px;
             text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
         }
         th {
-            background-color: #1f2833;
-            color: #66fcf1;
-            font-size: 1.1em;
-            letter-spacing: 1px;
-        }
-        td:hover {
-            background-color: rgba(31, 40, 51, 0.8);
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
         }
         
         /* Цвета предметов */
-        .math { background-color: #3a506b; color: white; }
-        .physics { background-color: #0b3d91; color: white; }
-        .biology { background-color: #2a9d8f; color: white; }
-        .cs { background-color: #4ecdc4; color: #0a192f; }
-        .engineering { background-color: #ef476f; color: white; }
-        .english { background-color: #ffd166; color: #0a192f; }
-        .statistics { background-color: #06d6a0; color: #0a192f; }
-        .olympiad { background-color: #8338ec; color: white; }
-        .humanities { background-color: #bb86fc; color: #0a192f; }
-        .social { background-color: #9d4edd; color: white; }
-        .geography { background-color: #457b9d; color: white; }
-        .history { background-color: #6d597a; color: white; }
-        .literature { background-color: #f15bb5; color: #0a192f; }
-        .music { background-color: #ff9e00; color: #0a192f; }
-        .technology { background-color: #ff6b6b; color: white; }
-        .art { background-color: #e63946; color: white; }
-        .pe { background-color: #4caf50; color: white; }
-        .break { background-color: #424242; color: white; }
-        .lunch { background-color: #000000; color: white; }
+        .russian { background-color: #e74c3c; color: white; }
+        .literature { background-color: #e67e22; color: white; }
+        .english { background-color: #f39c12; color: white; }
+        .algebra { background-color: #27ae60; color: white; }
+        .geometry { background-color: #16a085; color: white; }
+        .history { background-color: #9b59b6; color: white; }
+        .social { background-color: #8e44ad; color: white; }
+        .geography { background-color: #3498db; color: white; }
+        .physics { background-color: #2980b9; color: white; }
+        .biology { background-color: #1abc9c; color: white; }
+        .music { background-color: #d35400; color: white; }
+        .art { background-color: #c0392b; color: white; }
+        .technology { background-color: #7f8c8d; color: white; }
+        .pe { background-color: #34495e; color: white; }
+        .break { background-color: #bdc3c7; color: #333; font-weight: bold; }
+        .lunch { background-color: #95a5a6; color: white; font-weight: bold; }
         
-        .subject-details {
-            display: none;
-            position: absolute;
-            background-color: #1f2833;
-            border: 2px solid #45a29e;
-            padding: 15px;
-            z-index: 1000;
-            width: 300px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.7);
-            text-align: left;
-            top: calc(100% + 5px);
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        td:hover .subject-details {
-            display: block;
-        }
-        
-        .material-link {
-            color: #66fcf1;
-            text-decoration: none;
-            display: block;
-            margin: 5px 0;
-            padding: 3px 0;
-        }
-        .material-link:hover {
-            text-decoration: underline;
-        }
-        
-        .legend {
-            margin-top: 40px;
-            background-color: #1f2833;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-        .legend h3 {
-            color: #66fcf1;
-            margin-top: 0;
-            border-bottom: 1px solid #45a29e;
-            padding-bottom: 10px;
-        }
-        .legend-item {
-            display: inline-block;
-            margin: 5px 10px;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-        
-        /* Стили для кнопки печати */
         .print-btn {
-            background-color: #66fcf1;
-            color: #0a192f;
+            background-color: #3498db;
+            color: white;
             border: none;
             padding: 12px 24px;
             font-size: 16px;
@@ -127,50 +67,42 @@
             transition: background-color 0.3s;
         }
         .print-btn:hover {
-            background-color: #45a29e;
+            background-color: #2980b9;
+        }
+        
+        .schedule-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         
         @media (max-width: 768px) {
             table {
-                font-size: 0.9em;
+                font-size: 0.8em;
             }
             th, td {
-                padding: 8px 4px;
-            }
-            .subject-details {
-                width: 250px;
-                font-size: 0.9em;
-            }
-            .print-btn {
-                padding: 10px 20px;
-                font-size: 14px;
+                padding: 6px 2px;
             }
         }
         
-        /* Стили для печати */
         @media print {
             .print-btn {
                 display: none;
             }
             body {
                 background-color: white;
-                color: black;
             }
             table {
                 box-shadow: none;
-            }
-            .subject-details {
-                display: none !important;
-            }
-            .material-link {
-                color: #0000EE;
-                text-decoration: underline;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Полное расписание 7 класса (Подготовка к MIT)</h1>
+    <h1>Расписание 7 класса - Зыковская школа</h1>
+    <h2 style="text-align: center; color: #7f8c8d;">9:00 - 14:00</h2>
     
     <button class="print-btn" onclick="window.print()">🖨️ Распечатать расписание</button>
     
@@ -184,244 +116,100 @@
             <th>Пятница</th>
         </tr>
         
-        <!-- Утро: Основные академические предметы -->
         <tr>
-            <td>8:30-9:15</td>
-            <td class="math">
-                Алгебра
-                <div class="subject-details">
-                    <strong>MIT Recommended:</strong>
-                    <a href="https://ocw.mit.edu/courses/mathematics/" class="material-link" target="_blank">MIT OpenCourseWare Math</a>
-                    <a href="https://artofproblemsolving.com/" class="material-link" target="_blank">AoPS</a>
-                </div>
-            </td>
-            <td class="physics">
-                Физика
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/physics/" class="material-link" target="_blank">MIT Physics</a>
-                    <a href="https://www.khanacademy.org/science/physics" class="material-link" target="_blank">Khan Academy</a>
-                </div>
-            </td>
-            <td class="math">
-                Геометрия
-                <div class="subject-details">
-                    <a href="https://www.imo-official.org/" class="material-link" target="_blank">Math Olympiad</a>
-                </div>
-            </td>
-            <td class="cs">
-                Computer Science
-                <div class="subject-details">
-                    <a href="https://scratch.mit.edu/" class="material-link" target="_blank">Scratch MIT</a>
-                    <a href="https://www.python.org/" class="material-link" target="_blank">Python</a>
-                </div>
-            </td>
-            <td class="statistics">
-                Вероятность и статистика
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/" class="material-link" target="_blank">MIT Probability</a>
-                    <a href="https://www.khanacademy.org/math/statistics-probability" class="material-link" target="_blank">Khan Academy Stats</a>
-                </div>
-            </td>
+            <td>9:00-9:40</td>
+            <td class="algebra">Алгебра</td>
+            <td class="geometry">Геометрия</td>
+            <td class="algebra">Алгебра</td>
+            <td class="geometry">Геометрия</td>
+            <td class="algebra">Алгебра</td>
         </tr>
         
         <tr>
-            <td>9:20-10:05</td>
-            <td class="engineering">
-                Электроника
-                <div class="subject-details">
-                    <a href="https://www.arduino.cc/" class="material-link" target="_blank">Arduino</a>
-                    <a href="https://www.tinkercad.com/" class="material-link" target="_blank">Tinkercad Circuits</a>
-                </div>
-            </td>
-            <td class="biology">
-                Биология
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/biology/" class="material-link" target="_blank">MIT Biology</a>
-                    <a href="https://www.khanacademy.org/science/biology" class="material-link" target="_blank">Khan Academy Biology</a>
-                </div>
-            </td>
-            <td class="physics">
-                Решение задач
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/physics/8-01sc-classical-mechanics-fall-2016/" class="material-link" target="_blank">MIT Problem Sets</a>
-                </div>
-            </td>
-            <td class="english">
-                Английский язык
-                <div class="subject-details">
-                    <a href="https://www.mitadmissions.org/apply/prepare/" class="material-link" target="_blank">MIT Admissions</a>
-                </div>
-            </td>
-            <td class="olympiad">
-                Подготовка к олимпиадам
-                <div class="subject-details">
-                    <a href="https://www.soinc.org/" class="material-link" target="_blank">Science Olympiad</a>
-                    <a href="https://www.amc.org/" class="material-link" target="_blank">AMC Contests</a>
-                </div>
-            </td>
+            <td>9:50-10:30</td>
+            <td class="russian">Русский язык</td>
+            <td class="physics">Физика</td>
+            <td class="russian">Русский язык</td>
+            <td class="physics">Физика</td>
+            <td class="russian">Русский язык</td>
         </tr>
         
         <tr>
-            <td>10:10-10:55</td>
-            <td class="humanities">
-                Русский язык
-            </td>
-            <td class="humanities">
-                Русский язык
-            </td>
-            <td class="humanities">
-                Русский язык
-            </td>
-            <td class="social">
-                Обществознание
-                <div class="subject-details">
-                    <strong>MIT Link:</strong> Социальные аспекты технологий
-                </div>
-            </td>
-            <td class="biology">
-                Биология
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/biology/" class="material-link" target="_blank">MIT Biology</a>
-                    <a href="https://www.khanacademy.org/science/biology" class="material-link" target="_blank">Khan Academy Biology</a>
-                </div>
-            </td>
+            <td class="break">10:30-10:45</td>
+            <td class="break" colspan="5">Перемена</td>
         </tr>
         
         <tr>
-            <td class="break">11:00-11:15</td>
-            <td class="break" colspan="5">Перерыв</td>
+            <td>10:45-11:25</td>
+            <td class="literature">Литература</td>
+            <td class="biology">Биология</td>
+            <td class="literature">Литература</td>
+            <td class="english">Английский язык</td>
+            <td class="social">Обществознание</td>
         </tr>
         
         <tr>
-            <td>11:15-12:00</td>
-            <td class="math">
-                Алгебра
-                <div class="subject-details">
-                    <strong>Дополнительные материалы:</strong>
-                    <a href="https://www.khanacademy.org/math/algebra" class="material-link" target="_blank">Khan Academy Algebra</a>
-                </div>
-            </td>
-            <td class="music">
-                Музыка
-                <div class="subject-details">
-                    <strong>MIT Connection:</strong> Музыка и технологии
-                </div>
-            </td>
-            <td class="technology">
-                Технология
-                <div class="subject-details">
-                    <strong>Практические навыки:</strong> Работа с инструментами
-                </div>
-            </td>
-            <td class="physics">
-                Физика
-                <div class="subject-details">
-                    <strong>Дополнительные задачи:</strong>
-                    <a href="https://www.physicsclassroom.com/" class="material-link" target="_blank">Physics Classroom</a>
-                </div>
-            </td>
-            <td class="statistics">
-                Практикум по статистике
-                <div class="subject-details">
-                    <a href="https://www.kaggle.com/learn" class="material-link" target="_blank">Kaggle Learn</a>
-                </div>
-            </td>
+            <td>11:35-12:15</td>
+            <td class="english">Английский язык</td>
+            <td class="history">История</td>
+            <td class="english">Английский язык</td>
+            <td class="biology">Биология</td>
+            <td class="physics">Физика</td>
         </tr>
         
         <tr>
-            <td>12:05-12:50</td>
-            <td class="english">
-                Английская литература
-            </td>
-            <td class="physics">
-                Практическая физика
-            </td>
-            <td class="art">
-                ИЗО
-                <div class="subject-details">
-                    <strong>Творчество:</strong> Основы рисунка и живописи
-                </div>
-            </td>
-            <td class="pe">
-                Физкультура
-            </td>
-            <td class="cs">
-                Алгоритмы и программирование
-                <div class="subject-details">
-                    <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/" class="material-link" target="_blank">MIT EECS</a>
-                </div>
-            </td>
-        </tr>
-        
-        <tr>
-            <td class="lunch">12:50-13:30</td>
+            <td class="lunch">12:15-12:45</td>
             <td class="lunch" colspan="5">Обед</td>
         </tr>
         
         <tr>
-            <td>13:30-14:15</td>
-            <td class="literature">
-                Литература
-            </td>
-            <td class="history">
-                История
-            </td>
-            <td class="pe">
-                Физкультура
-            </td>
-            <td class="literature">
-                Литература
-            </td>
-            <td class="geography">
-                География
-            </td>
+            <td>12:45-13:25</td>
+            <td class="geography">География</td>
+            <td class="russian">Русский язык</td>
+            <td class="geography">География</td>
+            <td class="history">История</td>
+            <td class="physics">Физика</td>
+        </tr>
+        
+        <tr>
+            <td>13:35-14:15</td>
+            <td class="technology">Технология</td>
+            <td class="music">Музыка</td>
+            <td class="art">ИЗО</td>
+            <td class="pe">Физкультура</td>
+            <td class="pe">Физкультура</td>
         </tr>
     </table>
 
-    <div class="legend">
-        <h3>Условные обозначения:</h3>
-        <div>
-            <span class="legend-item" style="background-color: #3a506b; color: white;">Математика</span>
-            <span class="legend-item" style="background-color: #0b3d91; color: white;">Физика</span>
-            <span class="legend-item" style="background-color: #2a9d8f; color: white;">Биология</span>
-            <span class="legend-item" style="background-color: #4ecdc4; color: #0a192f;">Computer Science</span>
-            <span class="legend-item" style="background-color: #ef476f; color: white;">Инженерия</span>
-            <span class="legend-item" style="background-color: #ffd166; color: #0a192f;">Английский</span>
-            <span class="legend-item" style="background-color: #06d6a0; color: #0a192f;">Статистика</span>
-            <span class="legend-item" style="background-color: #8338ec; color: white;">Олимпиады</span>
-            <span class="legend-item" style="background-color: #bb86fc; color: #0a192f;">Русский язык</span>
-            <span class="legend-item" style="background-color: #9d4edd; color: white;">Обществознание</span>
-            <span class="legend-item" style="background-color: #457b9d; color: white;">География</span>
-            <span class="legend-item" style="background-color: #6d597a; color: white;">История</span>
-            <span class="legend-item" style="background-color: #f15bb5; color: #0a192f;">Литература</span>
-            <span class="legend-item" style="background-color: #ff9e00; color: #0a192f;">Музыка</span>
-            <span class="legend-item" style="background-color: #ff6b6b; color: white;">Технология</span>
-            <span class="legend-item" style="background-color: #e63946; color: white;">ИЗО</span>
-            <span class="legend-item" style="background-color: #4caf50; color: white;">Физкультура</span>
+    <div class="schedule-info">
+        <h3>📊 Количество часов в неделю:</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <div>📝 Русский язык: <strong>4 часа</strong></div>
+            <div>📚 Литература: <strong>2 часа</strong></div>
+            <div>🔤 Английский язык: <strong>3 часа</strong></div>
+            <div>➗ Алгебра: <strong>3 часа</strong></div>
+            <div>📐 Геометрия: <strong>2 часа</strong></div>
+            <div>📜 История: <strong>2 часа</strong></div>
+            <div>👥 Обществознание: <strong>1 час</strong></div>
+            <div>🌍 География: <strong>2 часа</strong></div>
+            <div>⚛️ Физика: <strong>3 часа</strong> (+1)</div>
+            <div>🌿 Биология: <strong>2 часа</strong></div>
+            <div>🎵 Музыка: <strong>1 час</strong></div>
+            <div>🎨 ИЗО: <strong>1 час</strong></div>
+            <div>🔧 Технология: <strong>1 час</strong></div>
+            <div>⚽ Физкультура: <strong>2 часа</strong></div>
         </div>
     </div>
 
-    <script>
-        // Для мобильных устройств - переключение по клику
-        document.querySelectorAll('td').forEach(item => {
-            item.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    const details = this.querySelector('.subject-details');
-                    if (details) {
-                        details.style.display = details.style.display === 'block' ? 'none' : 'block';
-                    }
-                }
-            });
-        });
+    <div class="schedule-info">
+        <h3>📅 Распределение физики:</h3>
+        <ul>
+            <li>Вторник: 9:50-10:30</li>
+            <li>Четверг: 9:50-10:30</li>
+            <li>Пятница: 11:35-12:15 и 12:45-13:25</li>
+            <li>Итого: <strong>3 урока в неделю</strong></li>
+        </ul>
+    </div>
 
-        // Закрытие при клике вне окна
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.subject-details') && !e.target.closest('td')) {
-                document.querySelectorAll('.subject-details').forEach(el => {
-                    el.style.display = 'none';
-                });
-            }
-        });
-    </script>
 </body>
 </html>
